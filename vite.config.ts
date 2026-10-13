@@ -11,7 +11,8 @@ import ElementPlus from 'unplugin-element-plus/vite'
 // https://vitejs.dev/config/
 export default defineConfig(async ({ mode }) => {
 	return {
-		base: mode === 'github-page' ? 'idcard-generator-tauri' : '',
+		// GitHub Pages 部署：用相对路径 base，适配任意仓库名/子路径
+		base: mode === 'github-page' ? './' : '',
 		plugins: [
 			vue(),
 			vueJsx(),
