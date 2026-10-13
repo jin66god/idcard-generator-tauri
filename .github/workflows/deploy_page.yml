@@ -2,8 +2,9 @@ name: Deploy site to GitHub Pages
 
 on:
   push:
-    tags:
-      - 'page-v*'
+    branches:
+      - master
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,7 +24,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 19
+          node-version: 20
 
       # pnpm 并使用缓存安装包
       - uses: pnpm/action-setup@v2
