@@ -1,7 +1,17 @@
-# 设置所有文件都使用LF格式的换行符
+# 默认所有文本文件用 LF
 * text eol=lf
 
-# 指定特定文件类型不使用LF格式的换行符
-*.png -text
-*.ico -text
-*.icns -text
+# 二进制文件：禁止换行符转换（否则内容会被破坏）
+*.png   -text
+*.jpg   -text
+*.jpeg  -text
+*.gif   -text
+*.webp  -text
+*.ico   -text
+*.icns  -text
+*.ttf   -text
+*.woff  -text
+*.woff2 -text
+*.zip   -text
+*.gz    -text
+*.pdf   -text
