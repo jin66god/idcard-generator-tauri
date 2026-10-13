@@ -97,8 +97,7 @@
 								scope.row.cardNumber,
 								scope.row.sex,
 								scope.row.birthday,
-								scope.row.country,
-								scope.$index
+								scope.row.country
 							)
 						"
 						>生成照片</el-button
@@ -200,8 +199,7 @@ const handleGenerateImage = (
 	_cardNumber: string,
 	_sexText: string,
 	_birthday: string,
-	_country: Country,
-	_avatarIndex: number
+	_country: Country
 ): void => {
 	router.push({
 		name: 'FprCardImage',
@@ -211,8 +209,7 @@ const handleGenerateImage = (
 			cardNumber: _cardNumber,
 			sexText: _sexText,
 			birthday: _birthday,
-			countryText: _country.name + '/' + _country.ISO_3166_1_threeString,
-			avatarIndex: String(_avatarIndex ?? 0)
+			countryText: _country.name + '/' + _country.ISO_3166_1_threeString
 		}
 	})
 }
