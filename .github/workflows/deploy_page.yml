@@ -52,6 +52,19 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build-only --mode github-page
+
+      # 可选: 用仓库 Secret(PAGE_PASSWORD) 给站点加密。未配置则跳过, 页面公开。
+      - name: Encrypt site with password
+        env:
+          PAGE_PASSWORD: ${{ secrets.PAGE_PASSWORD }}
+        run: |
+          if [ -z "$PAGE_PASSWORD" ]; then
+            echo "::notice::未配置 PAGE_PASSWORD, 跳过加密 (页面公开访问)"
+            exit 0
+          fi
+          npx -y staticrypt@3 dist/index.html -p "$PAGE_PASSWORD" -d dist --short             --template-title "身份证生成器 · 需要访问密码"             --template-instructions "本站已加密保护，请输入访问密码"             --template-button "进入"             --template-placeholder "请输入访问密码"             --template-error "密码错误，请重新输入"             --template-remember "记住我（7天）"
+          echo "::notice::已用 PAGE_PASSWORD 加密 index.html"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
