@@ -23,7 +23,8 @@ const router = createRouter({
 						name: route.query.name,
 						idCard: route.query.idCard,
 						sexText: route.query.sexText,
-						address: route.query.address
+						address: route.query.address,
+						avatarIndex: route.query.avatarIndex
 					})
 				},
 				{
@@ -41,7 +42,8 @@ const router = createRouter({
 						cardNumber: route.query.cardNumber,
 						sexText: route.query.sexText,
 						countryText: route.query.countryText,
-						birthday: route.query.birthday
+						birthday: route.query.birthday,
+						avatarIndex: route.query.avatarIndex
 					})
 				}
 			]

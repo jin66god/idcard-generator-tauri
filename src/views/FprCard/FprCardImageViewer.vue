@@ -100,6 +100,9 @@ const props = defineProps({
 	},
 	birthday: {
 		type: String
+	},
+	avatarIndex: {
+		type: [String, Number]
 	}
 })
 
@@ -198,6 +201,9 @@ const imageData = reactive({
 	userFemaleImage: AssetsUtils.IMAGE_USER_FEMALE
 })
 
+// 多人生成时的头像序号（来自路由 query），用于在同性别头像池里分配不同头像
+const avatarIndex = Math.abs(Number(props.avatarIndex ?? 0)) || 0
+
 /* eslint-disable */
 const reg = /\-/g
 const dateStr = computed(() => {
@@ -276,7 +282,16 @@ const onSubmit = (): void => {
 
 			backContext.drawImage(photoImage, 355, 90, 180, 200)
 		}
-		if (formData.sexText.indexOf('男') != -1) {
+		// 头像池分配：男用男图、女用女图，多人生成时按序号自动分配不同头像
+		const avatarList =
+			formData.sexText.indexOf('男') !== -1
+				? AssetsUtils.AVATAR_MALE_LIST
+				: formData.sexText.indexOf('女') !== -1
+					? AssetsUtils.AVATAR_FEMALE_LIST
+					: []
+		if (avatarList && avatarList.length) {
+			photoImage.src = avatarList[avatarIndex % avatarList.length]
+		} else if (formData.sexText.indexOf('男') != -1) {
 			photoImage.src = imageData.userMaleImage || ''
 		} else if (formData.sexText.indexOf('女') != -1) {
 			photoImage.src = imageData.userFemaleImage || ''

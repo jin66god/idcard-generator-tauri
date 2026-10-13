@@ -91,7 +91,15 @@
 						type="primary"
 						link
 						size="small"
-						@click="handleGenerateImage(scope.row.name, scope.row.idCard, scope.row.sex, scope.row.address)"
+						@click="
+						handleGenerateImage(
+							scope.row.name,
+							scope.row.idCard,
+							scope.row.sex,
+							scope.row.address,
+							scope.$index
+						)
+					"
 						>生成照片</el-button
 					>
 				</template>
@@ -221,14 +229,21 @@ const generateIdCardInfos = (array: Array<string>): void => {
 	})
 }
 
-const handleGenerateImage = (_name: string, _idCard: string, _sexText: string, _address: string): void => {
+const handleGenerateImage = (
+	_name: string,
+	_idCard: string,
+	_sexText: string,
+	_address: string,
+	_avatarIndex: number
+): void => {
 	router.push({
 		name: 'IdCardImage',
 		query: {
 			name: _name,
 			idCard: _idCard,
 			sexText: _sexText,
-			address: _address
+			address: _address,
+			avatarIndex: String(_avatarIndex ?? 0)
 		}
 	})
 }
